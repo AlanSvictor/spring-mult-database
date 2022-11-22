@@ -1,0 +1,30 @@
+version: "3.2"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: dbPostgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5433:5432
+    expose:
+      - 5433
+    volumes:
+      - /home/postgres/postdata:/var/lib/postgresql/data # persistent postgres database data.
+
+
+  database:
+    image: absolutapps/oracle-12c-ee
+    privileged: true
+    volumes:
+      - /home/oracle/oradata:/opt/oracle/oradata # persistent oracle database data.
+    environment:
+      ORACLE_SID: XE
+      ORACLE_PDB: XE
+      ORACLE_PWD: ORACLE
+      ORACLE_CHARACTERSET: AL32UTF8
+    ports:
+      - 1521:1521
+      - 5500:5500
+      - 8081:8081
